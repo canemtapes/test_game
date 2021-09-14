@@ -18,6 +18,8 @@ void ofApp::setup() {
 	bg.load("img/background_root.png");
 	jet.load("img/jet.png");
 	alien.load("img/alien.png");
+	plane1.load("img/plane1.png");
+	plane2.load("img/plane2.png");
 
 	//Cargamos los sonidos
 	intro.load("audio/intro.wav");
@@ -39,7 +41,7 @@ void ofApp::setup() {
 
 	//Inicializamos las variables de tipo enteras
 	resources = 0;
-	peopleMax = 6;
+	peopleMax = 3;
 	//barra de tiempo
 	timeBarHeight = 20;
 	initialWidthTimeBar = 1000;
@@ -51,9 +53,9 @@ void ofApp::setup() {
 	//Cargamos el setup de la clase Player
 	player.setup();
 	//Clase People
-	for (int i = 0; i < peopleMax; i++) {
-		people[i].setup();
-	}
+	person1.setup();
+	person2.setup();
+	person3.setup();
 	//Clase Fuel
 	for (int i = 0; i < 2; i++) {
 		bioFuel[i].setup();
@@ -80,9 +82,9 @@ void ofApp::update() {
 		scenery();
 
 		//Actualizacion personas
-		for (int i = 0; i < peopleMax; i++) {
-			people[i].update();
-		}
+		person1.update();
+		person2.update();
+		person3.update();
 	}
 }
 
@@ -99,6 +101,8 @@ void ofApp::draw() {
 	bg.draw(0, 0, width, height);
 	jet.draw(jetPos);
 	alien.draw(alienPos);
+	plane1.draw(plane1Pos);
+	plane2.draw(plane1Pos);
 
 	//Color de la barra de tiempo
 	ofSetColor(ofColor::red);
@@ -122,9 +126,9 @@ void ofApp::draw() {
 	//Jugador
 	player.draw();
 	//Personas
-	for (int i = 0; i < peopleMax; i++) {
-		people[i].draw();
-	}
+	person1.draw();
+	person2.draw();
+	person3.draw();
 }
 
 //--- CALLBACK, esta escuchando si el usuario presiona determinada tecla ---------------
@@ -150,10 +154,14 @@ void ofApp::keyPressed(int key) {
 		player.y = height - 200;
 
 		//Reseteamos las posiciones de las personas
-		for (int i = 0; i < peopleMax; i++) {
-			people[i].x = ofRandom(500, 1200);
-			people[i].y = ofRandom(-1, -20);
-		}
+		/*for (int i = 0; i < peopleMax; i++) {
+			people[i].peoplePosX[i] = ofRandom(500, 1200);
+			people[i].peoplePosY[i] = ofRandom(-1, -20);
+		}*/
+
+		x = ofRandom(250, 1200);
+		y = ofRandom(-100, -200);
+
 		//Reseteamos las posiciones de los bidones
 		for (int i = 0; i < 2; i++) {
 			fuel[i].fx = ofRandom(500, 1200);
@@ -174,9 +182,7 @@ void ofApp::keyPressed(int key) {
 		if (key == OF_KEY_RIGHT && player.x < 1380) {
 			//El juegador se mueve a la derecha en de 25 en 25
 			player.x += 25;
-			//Se suma medio segundo al tiempo total
-			totalTime += 0.5f;
-
+			totalTime += 0.1;
 			agree = false;
 		}
 
@@ -184,9 +190,7 @@ void ofApp::keyPressed(int key) {
 		if (key == OF_KEY_LEFT && player.x > 490) {
 
 			player.x -= 25;
-
-			totalTime += 0.5f;
-
+			totalTime += 0.1;
 			agree = false;
 		}
 
@@ -194,9 +198,7 @@ void ofApp::keyPressed(int key) {
 		if (key == OF_KEY_UP) {
 
 			player.y -= 25;
-
-			totalTime += 0.5f;
-
+			totalTime += 0.1;
 			agree = false;
 		}
 
@@ -204,9 +206,7 @@ void ofApp::keyPressed(int key) {
 		if (key == OF_KEY_DOWN) {
 
 			player.y += 25;
-
-			totalTime += 0.5f;
-
+			totalTime += 0.1;
 			agree = false;
 		}
 	}
@@ -239,10 +239,10 @@ void ofApp::timer() {
 
 //--------------------------------------------------------------
 void ofApp::scenery() {
-	//Si la nube esta en false
+	//Si los elementos estan en false
 	if (!jetOn) {
-		speed = ofRandom(1, 2); //velocidad de la nube random entre 1 y 3
-		jetPos.set(ofRandom(200), -400); //la nube comienza fuera de la pantalla
+		speed = ofRandom(1, 2); //velocidad random para cada uno
+		jetPos.set(ofRandom(200), -400); //comienza fuera de la pantalla
 		jetOn = true; //inicia el movimiento
 	}
 	else { //cuando esta en estado true
@@ -251,13 +251,33 @@ void ofApp::scenery() {
 	}
 
 	if (!alienOn) {
-		speed = ofRandom(1, 3); //velocidad de la nube random entre 1 y 3
-		alienPos.set(ofRandom(1300, 1900), -900); //la nube comienza fuera de la pantalla
-		alienOn = true; //inicia el movimiento
+		speed = ofRandom(1, 3); 
+		alienPos.set(ofRandom(1300, 1900), -900); 
+		alienOn = true; 
 	}
-	else { //cuando esta en estado true
-		alienPos.y += speed; //la posicion aumenta en relación a la velocidad
-		if (alienPos.y > height) alienOn = false; //Si sale de la pantalla vuelve a iniciar el ciclo
+	else { 
+		alienPos.y += speed;
+		if (alienPos.y > height) alienOn = false; 
+	}
+
+	if (!plane1On) {
+		speed = ofRandom(1, 3); 
+		plane1Pos.set(ofRandom(1300, 1900), -900); 
+		plane1On = true; 
+	}
+	else { 
+		plane1Pos.y += speed; 
+		if (plane1Pos.y > height) plane1On = false; 
+	}
+
+	if (!plane2On) {
+		speed = ofRandom(1, 3);
+		plane2Pos.set(ofRandom(1300, 1900), -900);
+		plane2On = true;
+	}
+	else {
+		plane2Pos.y += speed;
+		if (plane2Pos.y > height) plane2On = false;
 	}
 }
 
@@ -281,15 +301,32 @@ void ofApp::soundSettings() {
 
 //Colisión entre personaje y personas --------------------------
 void ofApp::playerCrash() {
-	for (int i = 0; i < 6; i++) {
-		if ((people[i].y > player.y - 25) && (people[i].y < player.y + 25) && (people[i].x > player.x - 25) && (people[i].x < player.x + 25)) {
-			pause = true;
-			agree = false;
+	//for (int i = 0; i < peopleMax; i++) {}
+	if ((person1.y > player.y - 25) && (person1.y < player.y + 25) && (person1.x > player.x - 25) && (person1.x < player.x + 25)) {
+		pause = true;
+		agree = false;
 
-			//Se muestra este mensaje en esta posición.
-			message_text = "¡Colisión!";
-			messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
-		}
+		//Se muestra este mensaje en esta posición.
+		message_text = "¡Colisión!";
+		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
+	}
+
+	if ((person2.y > player.y - 25) && (person2.y < player.y + 25) && (person2.x > player.x - 25) && (person2.x < player.x + 25)) {
+		pause = true;
+		agree = false;
+
+		//Se muestra este mensaje en esta posición.
+		message_text = "¡Colisión!";
+		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
+	}
+
+	if ((person3.y > player.y - 25) && (person3.y < player.y + 25) && (person3.x > player.x - 25) && (person3.x < player.x + 25)) {
+		pause = true;
+		agree = false;
+
+		//Se muestra este mensaje en esta posición.
+		message_text = "¡Colisión!";
+		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
 	}
 }
 
@@ -299,7 +336,7 @@ void ofApp::fuelCollector() {
 	resource_text = "Recursos = " + ofToString(resources);
 
 	//PP agarra combustible contaminante
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < peopleMax; i++) {
 		if ((fuel[i].fy > player.y - 25) && (fuel[i].fy < player.y + 25) && (fuel[i].fx > player.x - 25) && (fuel[i].fx < player.x + 25)) {
 			resources += 5;
 			totalTime -= 5;
@@ -310,7 +347,7 @@ void ofApp::fuelCollector() {
 	}
 
 	//PP agarra combustible ecológico
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < peopleMax; i++) {
 		if ((bioFuel[i].by > player.y - 25) && (bioFuel[i].by < player.y + 25) && (bioFuel[i].bx > player.x - 25) && (bioFuel[i].bx < player.x + 25)) {
 			resources += 10;
 			totalTime += 10;

@@ -12,7 +12,11 @@ public: //Vista y acceso público de estos métodos
 	People(); //Constructor
 
 	//Propiedades
-	int x, y, peopleMax;
+	int peopleMax;
+	int x, y;
+
+	//int peoplePosX[6];
+	//int peoplePosY[6];
 	float speed;
 
 	//Métodos
@@ -20,7 +24,11 @@ public: //Vista y acceso público de estos métodos
 	void update();
 	void draw();
 
-	ofImage people[6];
+	ofImage person1,
+			person2,
+			person3;
+
+	//ofImage people[6];
 
 	//Constantes para ancho y alto de la pantalla en fullscreen
 	const float width = 1920;

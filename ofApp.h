@@ -29,7 +29,7 @@ public:
 	//Booleanos
 	bool fullScreen, jetOn, alienOn, plane1On, plane2On, pause, agree;
 	//Variables de tipo entero
-	int resources, peopleMax;
+	int resources, peopleMax, x, y;
 	//Variables de tipo decimal
 	float speed, initialWidthTimeBar, timeBarWidth, timeBarHeight, totalTime;
 	//Imagenes
@@ -44,6 +44,7 @@ public:
 	ofSoundPlayer intro, normal, fast;
 
 	Player player;
-	People people[6];
+	People person1, person2, person3;
+	//People people[6];
 	Fuel fuel[2], bioFuel[2];
 };
