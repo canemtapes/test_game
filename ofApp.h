@@ -31,7 +31,7 @@ public:
 	//Variables de tipo entero
 	int resources, peopleMax, x, y;
 	//Variables de tipo decimal
-	float speed, initialWidthTimeBar, timeBarWidth, timeBarHeight, totalTime;
+	float speed, speed2, speed3, speed4, initialWidthTimeBar, timeBarWidth, timeBarHeight, totalTime;
 	//Imagenes
 	ofImage bg, jet, plane1, plane2, alien;
 	//Vector para guardar 2 valores, en este caso de posiciones.
