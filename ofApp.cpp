@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	ofSetWindowShape(960, 540); //Tamaño de la ventana por default
+	ofSetWindowShape(960, 540); //Tamaéš³ de la ventana por default
 
 	ofSetFrameRate(60); //Seteamos el framerate en 60
 	ofHideCursor(); //Ocultamos el cursor
@@ -34,7 +34,7 @@ void ofApp::setup() {
 	messageFT.load("lucon.ttf", 40);
 	//Cargamos los textos
 	resource_text = "Recursos = 0";
-	message_text = "¡Presiona ENTER para jugar!";
+	message_text = "Â·resiona ENTER para jugar!";
 	//Posicionamos los textos
 	messageTextPos.x = width / 2 - messageFT.stringWidth(message_text) / 2;
 	messageTextPos.y = height / 2;
@@ -72,10 +72,10 @@ void ofApp::update() {
 		//Timer
 		timer();
 
-		//Colisión personaje y personas
+		//Colisié® personaje y personas
 		playerCrash();
 
-		//Colisión personaje y fuel
+		//Colisié® personaje y fuel
 		fuelCollector();
 
 		//Escenario/Paisaje
@@ -149,7 +149,7 @@ void ofApp::keyPressed(int key) {
 		ofResetElapsedTimeCounter();
 		//Pausa se vuelve false
 		pause = !pause;
-		//Volvemos a posicionar al jugador en la posición de origen.
+		//Volvemos a posicionar al jugador en la posicié® de origen.
 		player.x = width / 2;
 		player.y = height - 200;
 
@@ -231,8 +231,8 @@ void ofApp::timer() {
 	{
 		pause = true; //Se pausa el juego
 
-		//Se muestra este mensaje en esta posición.
-		message_text = "¡Te quedaste sin tiempo! ¡La nave ha despegado!";
+		//Se muestra este mensaje en esta posicié®.
+		message_text = "ï¹—e quedaste sin tiempo! â€¥a nave ha despegado!";
 		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
 	}
 }
@@ -241,43 +241,43 @@ void ofApp::timer() {
 void ofApp::scenery() {
 	//Si los elementos estan en false
 	if (!jetOn) {
-		speed = ofRandom(1, 2); //velocidad random para cada uno
+		speed = ofRandom(4, 10); //velocidad random para cada uno
 		jetPos.set(ofRandom(200), -400); //comienza fuera de la pantalla
 		jetOn = true; //inicia el movimiento
 	}
 	else { //cuando esta en estado true
-		jetPos.y += speed; //la posicion aumenta en relación a la velocidad
-		if (jetPos.y > height) jetOn = false; //Si sale de la pantalla vuelve a iniciar el ciclo
+		jetPos.y += speed; //la posicion aumenta en relacié® a la velocidad
+		if (jetPos.y > ofRandom(3500,4000)) jetOn = false; //Si sale de la pantalla vuelve a iniciar el ciclo
 	}
 
 	if (!alienOn) {
-		speed = ofRandom(1, 3); 
+		speed2 = ofRandom(1, 4); 
 		alienPos.set(ofRandom(1300, 1900), -900); 
 		alienOn = true; 
 	}
 	else { 
-		alienPos.y += speed;
-		if (alienPos.y > height) alienOn = false; 
+		alienPos.y += speed2;
+		if (alienPos.y > ofRandom(2000,3500)) alienOn = false; 
 	}
 
 	if (!plane1On) {
-		speed = ofRandom(1, 3); 
+		speed3 = ofRandom(1, 3); 
 		plane1Pos.set(ofRandom(1300, 1900), -900); 
 		plane1On = true; 
 	}
 	else { 
-		plane1Pos.y += speed; 
-		if (plane1Pos.y > height) plane1On = false; 
+		plane1Pos.y += speed3; 
+		if (plane1Pos.y > ofRandom(2500,3700) plane1On = false; 
 	}
 
 	if (!plane2On) {
-		speed = ofRandom(1, 3);
+		speed4 = ofRandom(3, 7);
 		plane2Pos.set(ofRandom(1300, 1900), -900);
 		plane2On = true;
 	}
 	else {
-		plane2Pos.y += speed;
-		if (plane2Pos.y > height) plane2On = false;
+		plane2Pos.y += speed4;
+		if (plane2Pos.y > ofRandom(2000,4000) plane2On = false;
 	}
 }
 
@@ -299,15 +299,15 @@ void ofApp::soundSettings() {
 	}
 }
 
-//Colisión entre personaje y personas --------------------------
+//Colisié® entre personaje y personas --------------------------
 void ofApp::playerCrash() {
 	//for (int i = 0; i < peopleMax; i++) {}
 	if ((person1.y > player.y - 25) && (person1.y < player.y + 25) && (person1.x > player.x - 25) && (person1.x < player.x + 25)) {
 		pause = true;
 		agree = false;
 
-		//Se muestra este mensaje en esta posición.
-		message_text = "¡Colisión!";
+		//Se muestra este mensaje en esta posicié®.
+		message_text = "ã€‚olisié®!";
 		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
 	}
 
@@ -315,8 +315,8 @@ void ofApp::playerCrash() {
 		pause = true;
 		agree = false;
 
-		//Se muestra este mensaje en esta posición.
-		message_text = "¡Colisión!";
+		//Se muestra este mensaje en esta posicié®.
+		message_text = "ã€‚olisié®!";
 		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
 	}
 
@@ -324,13 +324,13 @@ void ofApp::playerCrash() {
 		pause = true;
 		agree = false;
 
-		//Se muestra este mensaje en esta posición.
-		message_text = "¡Colisión!";
+		//Se muestra este mensaje en esta posicié®.
+		message_text = "ã€‚olisié®!";
 		messageTextPos.x = width / 2 - (messageFT.stringWidth(message_text) / 2);
 	}
 }
 
-//Colisión entre personaje y combustible -----------------------
+//Colisié® entre personaje y combustible -----------------------
 void ofApp::fuelCollector() {
 	//Texto que muestra el estado de los recursos recolectados
 	resource_text = "Recursos = " + ofToString(resources);
@@ -346,7 +346,7 @@ void ofApp::fuelCollector() {
 		}
 	}
 
-	//PP agarra combustible ecológico
+	//PP agarra combustible ecolé¬ico
 	for (int i = 0; i < peopleMax; i++) {
 		if ((bioFuel[i].by > player.y - 25) && (bioFuel[i].by < player.y + 25) && (bioFuel[i].bx > player.x - 25) && (bioFuel[i].bx < player.x + 25)) {
 			resources += 10;
